@@ -14,6 +14,11 @@ describe('amqp-match', () => {
 		match('this.key', 'this.key').should.eql(true);
 
 	});
+	it('should not match key to this.key (direct inequality)', () => {
+
+		match('key', 'this.key').should.eql(false);
+
+	});
 
 	// Single word wildcard
 	it('should match this.new.key to this.*.key (single word wildcard)', () => {
@@ -28,7 +33,7 @@ describe('amqp-match', () => {
 
 	});
 
-	it('should match this.new.key to *.new.key (end single word wildcard)', () => {
+	it('should match this.new.key to this.new.* (end single word wildcard)', () => {
 
 		match('this.new.key', 'this.new.*').should.eql(true);
 
@@ -43,6 +48,18 @@ describe('amqp-match', () => {
 	it('should not match some.new.kinda.key to this.*.key (single word wildcard)', () => {
 
 		match('some.new.kinda.key', 'this.*.key').should.eql(false);
+
+	});
+
+	it('should not match this.new.key.end to this.new.* (end single word wildcard)', () => {
+
+		match('this.new.key.end', 'this.new.*').should.eql(false);
+
+	});
+
+	it('should not match start.this.new.key to *.new.key (beginning single word wildcard)', () => {
+
+		match('start.this.new.key', '*.new.key').should.eql(false);
 
 	});
 
