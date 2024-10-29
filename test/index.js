@@ -63,6 +63,16 @@ describe('amqp-match', () => {
 
 	});
 
+	it('should not match this.new.key to *.* (single word wildcards)', () => {
+		
+		match('this.new.key', '*.*').should.eql(false);
+	});
+
+	it('should match this.key to *.* (single word wildcards)', () => {
+		
+		match('this.key', '*.*').should.eql(true);
+	});
+
 	// Multi word wildcard
 
 	it('should match this.new.kinda.key to this.#.key (multi word wildcard)', () => {
@@ -117,5 +127,20 @@ describe('amqp-match', () => {
 	it('should work on mixed keys', () => {
 
 		match('this.key1.of.key2', '#.key1.*.key2').should.eql(true);
+	});
+
+	it('should fail on bad mixed keys 1', () => {
+
+		match('bad.this.key1.of.key2', 'good.#.key1.*.key2').should.eql(false);
+	});
+
+	it('should fail on bad mixed keys 2', () => {
+
+		match('bad.this.key1.of.key2.end', '#.key1.*.key2').should.eql(false);
+	});
+
+	it('should fail on bad mixed keys 3', () => {
+
+		match('bad.this.key1.of.key2.end', '#.key1.*.key2.*.*').should.eql(false);
 	});
 });
