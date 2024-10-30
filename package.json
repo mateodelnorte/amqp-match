@@ -1,6 +1,6 @@
 {
   "name": "amqp-match",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "simple library for matching amqp routing tokens, with *'s and #'s",
   "main": "index.js",
   "scripts": {
