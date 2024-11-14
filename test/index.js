@@ -21,6 +21,10 @@ describe('amqp-match', () => {
 	});
 
 	// Single word wildcard
+	it('should match this to * (single word wildcard)', () => {
+		match('this', '*').should.eql(true);
+	});
+
 	it('should match this.new.key to this.*.key (single word wildcard)', () => {
 
 		match('this.new.key', 'this.*.key').should.eql(true);
@@ -74,6 +78,14 @@ describe('amqp-match', () => {
 	});
 
 	// Multi word wildcard
+
+	it('should match anything to # (multi word wildcard) 1', () => {
+		match('this', '#').should.eql(true);
+	});
+
+	it('should match anything to # (multi word wildcard) 2', () => {
+		match('this.key', '#').should.eql(true);
+	});
 
 	it('should match this.new.kinda.key to this.#.key (multi word wildcard)', () => {
 
